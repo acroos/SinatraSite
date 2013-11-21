@@ -1,0 +1,12 @@
+<div class="container">	
+	<h1 class="page-header"><%= @title %></h1>
+	<div class="all-projects">
+		<% @projects.each do |project| %>
+			<div class="project">
+				<a href="/projects/<%= project.id %>"><h2 class="sub-header"><%= project.name %></h2></a>
+				<p class="project-desc"><%= project.description %></p>
+				<small>[Updated: <%= Time.parse(project.created_at.to_s).rfc822 %>]</small>
+			</div>
+		<% end %>
+	</div>
+</div>

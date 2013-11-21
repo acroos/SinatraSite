@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf8">
+	<title><%= "#{@title} | #{SITE_TITLE}" %></title>
+	<link href="/reset.css" rel="stylesheet">
+	<link href="/style.css" rel="stylesheet">
+</head>
+<body>
+	<div id="navbar">
+		<ul id="nav">
+			<li id="navfirst"><a href="/">Home</a></li>
+			<li id="nav"><a href="/work">Work</a></li>
+			<li id="nav"><a href="/school">School</a></li>
+			<li id="nav"><a href="/projects">Projects</a></li>
+			<li id="nav"><a href="/contact">Contact</a></li>
+		</ul>
+	</div>
+	<%= yield %>
+</body>
+</html>

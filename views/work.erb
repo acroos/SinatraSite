@@ -1,0 +1,11 @@
+<div class="container">
+	<h1 class="page-header"><%= @title %></h1>
+	<div class="all-projects">
+		<% @jobs.each do |job| %>
+			<div class="project">
+				<h2 class="sub-header"><%= job.company_name %></h2>
+				<p class="project-desc"><%= job.desc %></p>
+			</div>
+		<% end %>
+	</div>
+</div>

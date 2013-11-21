@@ -1,0 +1,14 @@
+<div class="container">
+<% if @project %>
+	<form action="/edit/<%= @project.id %>" method="post" id="edit">
+		<input type="hidden" name="_method" value="put">
+		name: <input type="text" name="name" value="<%= @project.name %>"></input><br>
+		description: <input type="text" name="description" value="<%= @project.description %>"></input><br>
+		content: <textarea name="content"><%= @project.content %></textarea><br>
+		password: <input type="password" name="password"></input>
+		<input type="submit">
+	</form>
+<% else %>
+	<p>Project not found.</p>
+<% end %>
+</div>

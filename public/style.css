@@ -1,0 +1,153 @@
+html, body {
+	width: 100%;
+	font-family: "times new roman", times, serif;
+	margin: 0;
+	padding: 0;
+	background-image:url("img/background.jpg");
+	overflow: scroll;
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+small {
+	font-size: 0.7em;
+	margin-left: 10px;
+}
+
+#nav {
+	display: inline;
+	margin-left: 30px;
+	text-align: center;
+	list-style-type: none;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+
+#navfirst {
+	display: inline;
+	text-align: center;
+	list-style-type: none;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+
+#navbar {
+	text-align: center;
+	width: 100%;
+	bottom: 0px;
+	position: fixed;
+	padding-top: 10px;
+	padding-bottom: 15px;
+	border-top: 2px solid gray;
+	background-color: white;
+}
+
+.container {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	padding: 10px;
+	background-color: white;
+	margin-bottom: 50px;
+}
+
+.center {
+	text-align: center;
+}
+
+.page-header {
+	font-size: 3.5em;
+	font-weight: bold;
+	text-align: center;
+	border-bottom: 2px solid gray;
+}
+
+.project-header {
+	font-size: 3.5em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sub-header {
+	font-size: 1.9em;
+	margin-bottom: 3px;
+}
+
+.sub-project-header {
+	font-size: 1.6em;
+	color: lightgray;
+	font-style: italic;
+	text-align: center;
+}
+
+.project-info {
+	width: 80%;
+	margin-top: 20px;
+	font-size: 1.1em;
+	line-height: 1.5em;
+	margin-right: auto;
+	margin-left: auto;
+	overflow: scroll;
+}
+
+.split {
+	width: 100%;
+	border-bottom: 2px solid gray;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.all-projects {
+	margin-top: 20px;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.project {
+	border-bottom: 1px solid gray;
+	margin-bottom: 10px;
+}
+
+.project-desc {
+	margin-left: 10px;
+	font-size: 1.2em;
+}
+
+.home-info {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.home-text {
+	margin-bottom: 10px;
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.work-info {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.school-info {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.contact-info {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
