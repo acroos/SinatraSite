@@ -1,32 +1,37 @@
 require 'rubygems'
 require 'sinatra'
-require 'data_mapper'
+require 'mongo'
+require 'mongo_mapper'
+# require 'data_mapper'
 
 SITE_TITLE = "Austin C. Roos"
 SITE_PASSWORD = "a"
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/acr.db")
+configure do 
+	MongoMapper.database = 'projects'
+end
+
+# DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/acr.db")
 
 class Job
-  include DataMapper::Resource
-  property :id, Serial
-  property :company_name, Text, :required => true
-  property :job_title, Text, :required => true
-  property :start_date, Text, :required => true
-  property :end_date, Text, :required => true
-  property :desc, Text, :required => true
+  include MongoMapper::Document
+  key :id,				Integer
+  key :company_name, 	String
+  key :job_title, 		String
+  key :start_date, 		String
+  key :end_date, 		String
+  key :desc, 			String
 end
 
 class Project
-  include DataMapper::Resource
-  property :id, Serial
-  property :name, Text, :required => true
-  property :description, Text, :required => true
-  property :content, Text, :required => true
-  property :created_at, DateTime
+  include MongoMapper::Document
+  key :name, 		String
+  key :description, String
+  key :content, 	String
+  key :created_at, 	Time
 end
 
-DataMapper.finalize.auto_upgrade!
+# DataMapper.finalize.auto_upgrade!
 
 helpers do 
 	include Rack::Utils
@@ -40,7 +45,7 @@ end
 
 get '/work' do
 	@title = 'Work'
-	@jobs = Job.all :order => :id.desc
+	@jobs = Job.sort :id.desc
 	erb :Work
 end
 
@@ -50,7 +55,7 @@ get '/school' do
 end
 
 get '/projects' do
-	@projects = Project.all :order => :id.desc
+	@projects = Project.sort :id.desc
 	@title = 'Projects'
 	if @projects.empty?
 		redirect '/'
@@ -60,7 +65,7 @@ get '/projects' do
 end
 
 get '/projects/:id' do
-	@project = Project.get params[:id]
+	@project = Project.where :id=>params[:id]
 	@title = @project.name
 	if @project
 		erb :project
@@ -80,13 +85,13 @@ get '/add' do
 end
 
 post '/add' do
-	p = Project.new
-	p.name        = params[:name]
-	p.description = params[:description]
-	p.content     = params[:content]
-	p.created_at  = Time.now
+	@p = Project.new
+	@p.name        = params[:name]
+	@p.description = params[:description]
+	@p.content     = params[:content]
+	@p.created_at  = Time.now
 	if params[:password] == SITE_PASSWORD
-		p.save
+		@p.save
 		redirect '/projects'
 	else
 		redirect '/add'
