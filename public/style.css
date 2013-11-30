@@ -7,6 +7,17 @@ html, body {
 	overflow: scroll;
 }
 
+input, textarea{
+	width: 400px;
+	margin-left: 70px;
+	margin-bottom: 10px;
+	padding: 3px;
+}
+
+textarea {
+	height: 200px;
+}
+
 a {
 	text-decoration: none;
 	color: gray;
@@ -73,6 +84,12 @@ small {
 	text-align: center;
 }
 
+.job-header {
+	font-size: 3.5em;
+	font-weight: bold;
+	text-align: center;
+}
+
 .sub-header {
 	font-size: 1.9em;
 	margin-bottom: 3px;
@@ -85,11 +102,32 @@ small {
 	text-align: center;
 }
 
+.sub-job-header {
+	font-size: 1.6em;
+	color: lightgray;
+	font-style: italic;
+	text-align: center;
+}
+
 .project-info {
 	width: 80%;
 	margin-top: 20px;
 	font-size: 1.1em;
 	line-height: 1.5em;
+	margin-right: auto;
+	margin-left: auto;
+	overflow: scroll;
+}
+
+.job-dates {
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.job-desc {
+	width: 80%;
+	margin-top: 20px;
+	font-size: 1.2em;
 	margin-right: auto;
 	margin-left: auto;
 	overflow: scroll;

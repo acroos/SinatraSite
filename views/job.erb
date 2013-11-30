@@ -1,0 +1,9 @@
+<div class="container">
+	<div class="split"><h1 class="job-header"><%= @job.company_name %></h1>
+		<h2 class="sub-job-header"><%= @job.job_title %></h2><br>
+		<p class="job-dates"><%= @job.start_date.month.to_s %>/<%= @job.start_date.year %> - <%= @job.end_date.month.to_s %>/<%= @job.end_date.year %></p>
+	</div>
+	<% @job.desc.each do |d| %>
+		<p class="job-desc"><%= d %></p>
+	<% end %>
+</div>

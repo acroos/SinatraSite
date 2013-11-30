@@ -2,36 +2,41 @@ require 'rubygems'
 require 'sinatra'
 require 'mongo'
 require 'mongo_mapper'
-# require 'data_mapper'
+require 'date'
 
 SITE_TITLE = "Austin C. Roos"
 SITE_PASSWORD = "a"
+MONGOLAB_URI = "mongodb://acr:soapy323@ds039507.mongolab.com:39507/acr-site"
 
-configure do 
-	MongoMapper.database = 'projects'
-end
+regex_match = /.*:\/\/(.*):(.*)@(.*):(.*)\//.match(MONGOLAB_URI)
+host = "ds039507.mongolab.com"
+port = "39507"
+db_name = "acr-site"
+user = "acr"
+pw = "soapy323"
 
-# DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/acr.db")
+MongoMapper.connection = Mongo::Connection.new(host, port)
+MongoMapper.database = db_name
+MongoMapper.database.authenticate(user, pw)
 
 class Job
   include MongoMapper::Document
-  key :id,				Integer
+  key :order,			Integer
   key :company_name, 	String
   key :job_title, 		String
-  key :start_date, 		String
-  key :end_date, 		String
-  key :desc, 			String
+  key :start_date, 		Time
+  key :end_date, 		Time
+  key :desc, 			Array
 end
 
 class Project
   include MongoMapper::Document
+  key :order,		Integer
   key :name, 		String
   key :description, String
   key :content, 	String
   key :created_at, 	Time
 end
-
-# DataMapper.finalize.auto_upgrade!
 
 helpers do 
 	include Rack::Utils
@@ -45,7 +50,7 @@ end
 
 get '/work' do
 	@title = 'Work'
-	@jobs = Job.sort :id.desc
+	@jobs = Job.sort :end_date.desc
 	erb :Work
 end
 
@@ -65,10 +70,20 @@ get '/projects' do
 end
 
 get '/projects/:id' do
-	@project = Project.where :id=>params[:id]
+	@project = Project.find_by_id params[:id]
 	@title = @project.name
 	if @project
 		erb :project
+	else
+		redirect '/'
+	end
+end
+
+get '/work/:id' do
+	@job = Job.find_by_id params[:id]
+	@title = @job.company_name
+	if @job
+		erb :job
 	else
 		redirect '/'
 	end
@@ -79,26 +94,48 @@ get '/contact' do
 	erb :contact
 end
 
-get '/add' do
+get '/add-job' do
+	@title = "Admin only"
+	erb :add_job
+end
+
+post '/add-job' do
+	@p = Job.new
+	@p.company_name 	= params[:company_name]
+	@p.job_title 		= params[:job_title]
+	@p.start_date     	= DateTime.parse(params[:start_date])
+	@p.end_date  		= DateTime.parse(params[:end_date])
+	@p.desc 			= params[:desc].each.split '.  ' do |d|
+		@p.desc.push d
+	end
+	if params[:password] == SITE_PASSWORD
+		@p.save
+		redirect '/work'
+	else
+		redirect '/add-job'
+	end
+end
+
+get '/add-project' do
 	@title = "Admin only"
 	erb :add_project
 end
 
-post '/add' do
-	@p = Project.new
-	@p.name        = params[:name]
-	@p.description = params[:description]
-	@p.content     = params[:content]
-	@p.created_at  = Time.now
+post '/add-project' do
+	@j = Project.new
+	@j.name        = params[:name]
+	@j.description = params[:description]
+	@j.content     = params[:content]
+	@j.created_at  = Time.now
 	if params[:password] == SITE_PASSWORD
-		@p.save
+		@j.save
 		redirect '/projects'
 	else
-		redirect '/add'
+		redirect '/add-project'
 	end
 end
 
-get '/edit/:id' do
+get '/edit/project/:id' do
 	@project = Project.get params[:id]
 	@title = "Edit project #{params[:name]}"
 	if @project
@@ -108,7 +145,7 @@ get '/edit/:id' do
 	end
 end
 
-put '/edit/:id' do
+put '/edit/project/:id' do
 	p = Project.get params[:id]
 	unless p
 		redirect '/'
