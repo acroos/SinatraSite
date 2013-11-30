@@ -3,7 +3,7 @@ require 'sinatra'
 require 'data_mapper'
 
 SITE_TITLE = "Austin C. Roos"
-SITE_PASSWORD = "WhoTheWhoTheFuckAskedYouNiggas"
+SITE_PASSWORD = "a"
 
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/acr.db")
 
