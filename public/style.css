@@ -109,6 +109,18 @@ small {
 	text-align: center;
 }
 
+.project-pics {
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.project-pic {
+	margin-right: 20px;
+}
+
 .project-info {
 	width: 80%;
 	margin-top: 20px;

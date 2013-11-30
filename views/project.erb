@@ -1,5 +1,11 @@
 <div class="container">
 	<div class="split"><h1 class="project-header"><%= @project.name %></h1>
-		<h2 class="sub-project-header"><%= @project.description %></div>
+		<h2 class="sub-project-header"><%= @project.description %>
+	</div>
+	<div class="project-pics">
+		<% @project.pics.each do |pic| %>
+			<img class="project-pic" src="<%= pic %>" width="100px" >
+		<% end %>
+	</div>
 	<div class="project-info"><%= @project.content %></div>
 </div>

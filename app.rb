@@ -36,6 +36,7 @@ class Project
   key :description, String
   key :content, 	String
   key :created_at, 	Time
+  key :pics, 		Array 
 end
 
 helpers do 
