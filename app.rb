@@ -51,7 +51,7 @@ end
 
 get '/work' do
 	@title = 'Work'
-	@jobs = Job.sort :end_date.to_f.desc
+	@jobs = Job.sort :id.desc
 	erb :Work
 end
 
