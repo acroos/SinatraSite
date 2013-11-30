@@ -52,7 +52,7 @@ end
 get '/work' do
 	@title = 'Work'
 	@jobs = Job.sort :id.desc
-	erb :Work
+	erb :work
 end
 
 get '/school' do
