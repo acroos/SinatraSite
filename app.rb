@@ -51,7 +51,7 @@ end
 
 get '/work' do
 	@title = 'Work'
-	@jobs = Job.sort :id.desc
+	@jobs = Job.sort :end_date.desc
 	erb :work
 end
 
@@ -106,9 +106,7 @@ post '/add-job' do
 	@p.job_title 		= params[:job_title]
 	@p.start_date     	= DateTime.parse(params[:start_date])
 	@p.end_date  		= DateTime.parse(params[:end_date])
-	@p.desc 			= params[:desc].each.split '.  ' do |d|
-		@p.desc.push d
-	end
+	@p.desc 			= params[:desc]
 	if params[:password] == SITE_PASSWORD
 		@p.save
 		redirect '/work'

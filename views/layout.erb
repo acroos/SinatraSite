@@ -7,14 +7,14 @@
 	<link href="/reset.css" rel="stylesheet">
 	<link href="/style.css" rel="stylesheet">
 </head>
-<body>
+<body id=<%= "#{@title}" %> >
 	<div id="navbar">
-		<ul id="nav">
-			<li id="navfirst"><a href="/">Home</a></li>
-			<li id="nav"><a href="/work">Work</a></li>
-			<li id="nav"><a href="/school">School</a></li>
-			<li id="nav"><a href="/projects">Projects</a></li>
-			<li id="nav"><a href="/contact">Contact</a></li>
+		<ul class="nav">
+			<li class="navfirst"><a id="homenav" href="/">Home</a></li>
+			<li class="nav"><a id="worknav" href="/work">Work</a></li>
+			<li class="nav"><a id="schoolnav" href="/school">School</a></li>
+			<li class="nav"><a id="projectnav" href="/projects">Projects</a></li>
+			<li class="nav"><a id="contactnav" href="/contact">Contact</a></li>
 		</ul>
 	</div>
 	<%= yield %>
