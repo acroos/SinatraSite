@@ -20,8 +20,7 @@ MongoMapper.database = db_name
 MongoMapper.database.authenticate(user, pw)
 
 class Job
-  include MongoMapper::Document
-  key :order,			Integer
+  key :order,			String
   key :company_name, 	String
   key :job_title, 		String
   key :start_date, 		Time
@@ -46,23 +45,27 @@ end
 
 get '/' do
 	@title = 'Home'
+	@label = 'Home'
 	erb :home
 end
 
 get '/work' do
 	@title = 'Work'
-	@jobs = Job.sort :end_date.desc
+	@label = 'Work'
+	@jobs = Job.sort(:end_date.desc)
 	erb :work
 end
 
 get '/school' do
 	@title = 'School'
+	@label = 'School'
 	erb :school
 end
 
 get '/projects' do
-	@projects = Project.sort :id.desc
+	@projects = Project.sort(:created_at.desc)
 	@title = 'Projects'
+	@label = 'Projects'
 	if @projects.empty?
 		redirect '/'
 	else
@@ -73,6 +76,7 @@ end
 get '/projects/:id' do
 	@project = Project.find_by_id params[:id]
 	@title = @project.name
+	@label = 'Projects'
 	if @project
 		erb :project
 	else
@@ -83,6 +87,7 @@ end
 get '/work/:id' do
 	@job = Job.find_by_id params[:id]
 	@title = @job.company_name
+	@label = 'Work'
 	if @job
 		erb :job
 	else
@@ -92,6 +97,7 @@ end
 
 get '/contact' do
 	@title = 'Contact'
+	@label = 'Contact'
 	erb :contact
 end
 
@@ -101,14 +107,14 @@ get '/add-job' do
 end
 
 post '/add-job' do
-	@p = Job.new
-	@p.company_name 	= params[:company_name]
-	@p.job_title 		= params[:job_title]
-	@p.start_date     	= DateTime.parse(params[:start_date])
-	@p.end_date  		= DateTime.parse(params[:end_date])
-	@p.desc 			= params[:desc]
+	@j = Job.new
+	@j.company_name 	= params[:company_name]
+	@j.job_title 		= params[:job_title]
+	@j.start_date     	= DateTime.parse(params[:start_date])
+	@j.end_date  		= DateTime.parse(params[:end_date])
+	@j.desc 			= params[:desc]
 	if params[:password] == SITE_PASSWORD
-		@p.save
+		@j.save
 		redirect '/work'
 	else
 		redirect '/add-job'
@@ -121,13 +127,14 @@ get '/add-project' do
 end
 
 post '/add-project' do
-	@j = Project.new
-	@j.name        = params[:name]
-	@j.description = params[:description]
-	@j.content     = params[:content]
-	@j.created_at  = Time.now
+	@p = Project.new
+	@p.name        = params[:name]
+	@p.description = params[:description]
+	@p.content     = params[:content]
+	@p.order	   = params[:order].to_i
+	@p.created_at  = Time.now
 	if params[:password] == SITE_PASSWORD
-		@j.save
+		@p.save
 		redirect '/projects'
 	else
 		redirect '/add-project'
