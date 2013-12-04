@@ -20,6 +20,7 @@ MongoMapper.database = db_name
 MongoMapper.database.authenticate(user, pw)
 
 class Job
+  include MongoMapper::Document
   key :order,			String
   key :company_name, 	String
   key :job_title, 		String
