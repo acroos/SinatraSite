@@ -19,15 +19,6 @@ MongoMapper.connection = Mongo::Connection.new(host, port)
 MongoMapper.database = db_name
 MongoMapper.database.authenticate(user, pw)
 
-class Job
-  key :order,			String
-  key :company_name, 	String
-  key :job_title, 		String
-  key :start_date, 		Time
-  key :end_date, 		Time
-  key :desc, 			Array
-end
-
 class Project
   include MongoMapper::Document
   key :order,		Integer
@@ -44,26 +35,22 @@ helpers do
 end
 
 get '/' do
+	@header = 'Austin C. Roos'
 	@title = 'Home'
 	@label = 'Home'
 	erb :home
 end
 
-get '/work' do
-	@title = 'Work'
-	@label = 'Work'
-	@jobs = Job.sort(:end_date.desc)
-	erb :work
-end
-
-get '/school' do
-	@title = 'School'
-	@label = 'School'
-	erb :school
+get '/about' do
+	@header = 'About Me'
+	@title = 'About Me'
+	@label = 'About'
+	erb :About
 end
 
 get '/projects' do
 	@projects = Project.sort(:created_at.desc)
+	@header = 'Projects'
 	@title = 'Projects'
 	@label = 'Projects'
 	if @projects.empty?
@@ -75,6 +62,7 @@ end
 
 get '/projects/:id' do
 	@project = Project.find_by_id params[:id]
+	@header = @project.name
 	@title = @project.name
 	@label = 'Projects'
 	if @project
@@ -84,41 +72,10 @@ get '/projects/:id' do
 	end
 end
 
-get '/work/:id' do
-	@job = Job.find_by_id params[:id]
-	@title = @job.company_name
-	@label = 'Work'
-	if @job
-		erb :job
-	else
-		redirect '/'
-	end
-end
-
 get '/contact' do
 	@title = 'Contact'
 	@label = 'Contact'
 	erb :contact
-end
-
-get '/add-job' do
-	@title = "Admin only"
-	erb :add_job
-end
-
-post '/add-job' do
-	@j = Job.new
-	@j.company_name 	= params[:company_name]
-	@j.job_title 		= params[:job_title]
-	@j.start_date     	= DateTime.parse(params[:start_date])
-	@j.end_date  		= DateTime.parse(params[:end_date])
-	@j.desc 			= params[:desc]
-	if params[:password] == SITE_PASSWORD
-		@j.save
-		redirect '/work'
-	else
-		redirect '/add-job'
-	end
 end
 
 get '/add-project' do

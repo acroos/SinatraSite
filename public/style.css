@@ -220,6 +220,7 @@ small {
 #Work a#worknav,
 #School a#schoolnav,
 #Projects a#projectnav,
-#Contact a#contactnav {
+#Contact a#contactnav, 
+#About a#aboutnav{
 	font-weight: bolder;
 }

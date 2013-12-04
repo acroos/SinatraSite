@@ -11,12 +11,13 @@
 	<div id="navbar">
 		<ul class="nav">
 			<li class="navfirst"><a id="homenav" href="/">Home</a></li>
-			<li class="nav"><a id="worknav" href="/work">Work</a></li>
-			<li class="nav"><a id="schoolnav" href="/school">School</a></li>
+			<li class="nav"><a id="aboutnav" href="/about">About Me</a></li>
 			<li class="nav"><a id="projectnav" href="/projects">Projects</a></li>
-			<li class="nav"><a id="contactnav" href="/contact">Contact</a></li>
 		</ul>
 	</div>
-	<%= yield %>
+	<div class="container">
+		<h1 class="page-header"><%= @header %></h1>
+		<%= yield %>
+	</div>
 </body>
 </html>
