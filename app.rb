@@ -4,16 +4,7 @@ require 'mongo'
 require 'mongo_mapper'
 require 'date'
 
-SITE_TITLE = "Austin C. Roos"
-SITE_PASSWORD = "a"
-MONGOLAB_URI = "mongodb://acr:soapy323@ds039507.mongolab.com:39507/acr-site"
 
-regex_match = /.*:\/\/(.*):(.*)@(.*):(.*)\//.match(MONGOLAB_URI)
-host = "ds039507.mongolab.com"
-port = "39507"
-db_name = "acr-site"
-user = "acr"
-pw = "soapy323"
 
 MongoMapper.connection = Mongo::Connection.new(host, port)
 MongoMapper.database = db_name
@@ -22,11 +13,11 @@ MongoMapper.database.authenticate(user, pw)
 class Project
   include MongoMapper::Document
   key :order,		Integer
-  key :name, 		String
-  key :description, String
-  key :content, 	String
-  key :created_at, 	Time
-  key :pics, 		Array 
+  key :name,		String
+  key :description,	String
+  key :content,		String
+  key :created_at,	Time
+  key :pics,		Array 
 end
 
 helpers do 
