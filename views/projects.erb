@@ -1,12 +1,9 @@
-<div class="container">	
-	<h1 class="page-header"><%= @title %></h1>
-	<div class="all-projects">
-		<% @projects.each do |project| %>
-			<div class="project">
-				<h2 class="sub-header"><a href="/projects/<%= project.id %>"><%= project.name %></a></h2>
-				<p class="project-desc"><%= project.description %></p>
-				<small>[Updated: <%= Time.parse(project.created_at.to_s).rfc822 %>]</small>
-			</div>
-		<% end %>
-	</div>
+<div class="all-projects">
+	<% @projects.each do |project| %>
+		<div class="project">
+			<h2 class="sub-header"><a href="/projects/<%= project.id %>"><%= project.name %></a></h2>
+			<p class="project-desc"><%= project.description %></p>
+			<small>[Updated: <%= Time.parse(project.created_at.to_s).rfc822 %>]</small>
+		</div>
+	<% end %>
 </div>
