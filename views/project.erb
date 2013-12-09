@@ -6,4 +6,8 @@
 		<img class="project-pic" src="<%= pic %>" width="100px" >
 	<% end %>
 </div>
-<div class="project-info"><%= @project.content %></div>
+<div class="project-info">
+	<% @project.content.each do |content| %>
+		<p class="project-paragraph"><%= content %></p>
+	<% end %>
+</div>

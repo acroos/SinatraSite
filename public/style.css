@@ -44,15 +44,11 @@ small {
 	text-align: center;
 	list-style-type: none;
 	text-decoration: none;
-	font-size: 1.2em;
+	font-size: 1.4em;
 }
 
-.navfirst {
-	display: inline;
-	text-align: center;
-	list-style-type: none;
-	text-decoration: none;
-	font-size: 1.2em;
+.first {
+	margin-left: 0px;
 }
 
 #navbar {
@@ -182,6 +178,11 @@ small {
 	font-size: 1.2em;
 }
 
+.project-paragraph {
+	margin-bottom: 8px;
+	text-indent:40px;
+}
+
 .home-info {
 	width: 80%;
 	margin-left: auto;
@@ -217,10 +218,8 @@ small {
 }
 
 #Home a#homenav,
-#Work a#worknav,
-#School a#schoolnav,
 #Projects a#projectnav,
-#Contact a#contactnav, 
-#About a#aboutnav{
+#About a#aboutnav,
+#Experience a#experiencenav{
 	font-weight: bolder;
 }
