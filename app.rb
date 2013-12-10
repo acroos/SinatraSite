@@ -52,32 +52,50 @@ def split_paragraphs(text)
 	return items
 end
 
-['/', '/welcome'].each do |path|
-	get path do 
+get '/welcome' do 
 		@title = 'Welcome'
 		erb :welcome, :layout => :layout_welcome
+end
+
+get '/' do
+	redirect '/index.html'
+end
+
+['/index', '/index.html'].each do |path|
+	get path do
+		@header = 'Austin C. Roos'
+		@title = 'Home'
+		@label = 'Home'
+		erb :home
 	end
 end
 
-get '/index' do
-	@header = 'Austin C. Roos'
-	@title = 'Home'
-	@label = 'Home'
-	erb :home
+['/about', '/about.html'].each do |path|
+	get path do
+		@header = 'About Me'
+		@title = 'About Me'
+		@label = 'About'
+		erb :about
+	end
 end
 
-get '/about' do
-	@header = 'About Me'
-	@title = 'About Me'
-	@label = 'About'
-	erb :about
-end
-
-get '/experience' do
+get '/experience/?' do
 	@header = 'Experience'
 	@title = 'Experience'
 	@label = 'Experience'
 	erb :experience
+end
+
+get '/experience/:id' do
+	@job = Job.find_by_id params[:id]
+	@header = @job.name
+	@title = @job.name
+	@label = 'Experience'
+	if @job
+		erb :job 
+	else
+		redirect '/'
+	end
 end
 
 get '/projects/?' do
@@ -104,10 +122,12 @@ get '/projects/:id' do
 	end
 end
 
-get '/contact' do
-	@title = 'Contact'
-	@label = 'Contact'
-	erb :contact
+['/contact', '/contact.html'].each do |path|
+	get path do
+		@title = 'Contact'
+		@label = 'Contact'
+		erb :contact
+	end
 end
 
 get '/add-project' do
