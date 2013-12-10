@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf8">
+	<title><%= "#{@title} | #{SITE_TITLE}" %></title>
+	<link rel="icon" type="image/png" href="/img/icon.png">
+	<link href="/reset.css" rel="stylesheet">
+	<link href="/style.css" rel="stylesheet">
+</head>
+<body id=<%= "#{@label}" %> >
+	<div id="navbar">
+		<ul class="nav">
+			<li class="nav first"><a id="homenav" href="/index">Home</a></li>
+			<li class="nav"><a id="aboutnav" href="/about">About Me</a></li>
+			<li class="nav"><a id="projectnav" href="/projects">Projects</a></li>
+			<li class="nav"><a id="experiencenav" href="/experience">Experience</a></li>
+		</ul>
+	</div>
+	<div class="container no-scroll">
+		<h1 class="home-header"><%= @header %></h1>
+		<%= yield %>
+	</div>
+</body>
+</html>

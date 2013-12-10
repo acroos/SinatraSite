@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf8">
+	<title><%= "#{@title} | #{SITE_TITLE}" %></title>
+	<link rel="icon" type="image/png" href="/img/icon.png">
+	<link href="/reset.css" rel="stylesheet">
+	<link href="/style.css" rel="stylesheet">
+</head>
+<body id=<%= "#{@label}" %> >
+	<div id="under-construction">
+		<h1>Site under construction</h1>
+		<a href="https://github.com/betterHackrName" target="_blank" alt="github"><img src="img/github.png" class="home-link"></img></a>
+		<a href="http://www.linkedin.com/pub/austin-roos/31/121/610" target="_blank" alt="linkedin"><img src="img/linkedin.png" class="home-link"></img></a>
+		<a href="mailto:roos.austin@gmail.com?Subject=Austin%20Roos%20site" target="_blank" alt="email"><img src="img/email.png" class="home-link"></img></a>		<%= yield %>
+	</div>
+</body>
+</html>

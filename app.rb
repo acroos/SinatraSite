@@ -26,7 +26,7 @@ class Project
   key :description,	String
   key :content,			Array
   key :created_at,	Time
-  key :pics,				Array 
+  key :pics,				Array
 end
 
 class Job
@@ -39,7 +39,7 @@ class Job
 end
 
 
-helpers do 
+helpers do
 	include Rack::Utils
 	alias_method :h, :escape_html
 end
@@ -52,13 +52,14 @@ def split_paragraphs(text)
 	return items
 end
 
-get '/welcome' do 
-		@title = 'Welcome'
-		erb :welcome, :layout => :layout_welcome
+get '/' do
+	@title = 'Site In Progress'
+	erb :in_progress, :layout => :layout_under_construction
 end
 
-get '/' do
-	redirect '/index.html'
+get '/welcome' do
+		@title = 'Welcome'
+		erb :welcome, :layout => :layout_welcome
 end
 
 ['/index', '/index.html'].each do |path|
@@ -66,7 +67,7 @@ end
 		@header = 'Austin C. Roos'
 		@title = 'Home'
 		@label = 'Home'
-		erb :home
+		erb :home, :layout => :layout_home
 	end
 end
 
@@ -92,7 +93,7 @@ get '/experience/:id' do
 	@title = @job.name
 	@label = 'Experience'
 	if @job
-		erb :job 
+		erb :job
 	else
 		redirect '/'
 	end
