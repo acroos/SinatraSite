@@ -4,16 +4,19 @@ require 'mongo'
 require 'mongo_mapper'
 require 'date'
 
-SITE_TITLE = "Austin C. Roos"
-SITE_PASSWORD = "a"
-MONGOLAB_URI = "mongodb://acr:soapy323@ds039507.mongolab.com:39507/acr-site"
+admin_info = Array.new
+File.open('admin.txt', 'r').each do |line|
+	admin_info.push line.strip
+end
 
-regex_match = /.*:\/\/(.*):(.*)@(.*):(.*)\//.match(MONGOLAB_URI)
-host = "ds039507.mongolab.com"
-port = "39507"
-db_name = "acr-site"
-user = "acr"
-pw = "soapy323"
+SITE_TITLE = "Austin C. Roos"
+SITE_PASSWORD = admin_info[0]
+
+host = admin_info[1]
+port = admin_info[2]
+db_name = admin_info[3]
+user = admin_info[4]
+pw = admin_info[5]
 
 MongoMapper.connection = Mongo::Connection.new(host, port)
 MongoMapper.database = db_name
