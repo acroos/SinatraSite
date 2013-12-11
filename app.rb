@@ -25,8 +25,10 @@ class Project
   key :name,				String
   key :description,	String
   key :content,			Array
+  key :status,			String
   key :created_at,	Time
   key :pics,				Array
+  key :files,				Array
 end
 
 class Job
@@ -44,6 +46,10 @@ helpers do
 	alias_method :h, :escape_html
 end
 
+def title_empty()
+	return title.empty?
+end
+
 def split_paragraphs(text)
 	items = Array.new
 	text.split('\r\n').each do |paragraph|
@@ -52,20 +58,27 @@ def split_paragraphs(text)
 	return items
 end
 
-get '/' do
-	@title = 'Site In Progress'
-	erb :in_progress, :layout => :layout_under_construction
+def split_files(text)
+	files = Array.new
+	text.split('\r\n').each do |file|
+		files.push file
+	end
+	return files
 end
 
-get '/welcome' do
-		@title = 'Welcome'
-		erb :welcome, :layout => :layout_welcome
-end
+# get '/' do
+# 	@title = 'Site In Progress'
+# 	erb :in_progress, :layout => :layout_under_construction
+# end
 
-['/index', '/index.html'].each do |path|
+# get '/welcome' do
+# 		@title = 'Welcome'
+# 		erb :welcome, :layout => :layout_welcome
+# end
+
+['/', '/index', '/index.html'].each do |path|
 	get path do
 		@header = 'Austin C. Roos'
-		@title = 'Home'
 		@label = 'Home'
 		erb :home, :layout => :layout_home
 	end
@@ -123,6 +136,13 @@ get '/projects/:id' do
 	end
 end
 
+get '/projects/:id/pics/:pic' do
+	@project = Project.find_by_id params[:id]
+	@title = @project.name
+	@pic = params[:pic]
+	erb :photo, :layout => :layout_photo
+end
+
 ['/contact', '/contact.html'].each do |path|
 	get path do
 		@title = 'Contact'
@@ -134,6 +154,7 @@ end
 get '/add-project' do
 	if settings.development?
 		@title = "Admin only"
+		@header = "Add Project"
 		erb :add_project
 	else
 		redirect '/'
@@ -142,11 +163,13 @@ end
 
 post '/add-project' do
 	@p = Project.new
-	@p.name        = params[:name]
-	@p.description = params[:description]
-	@p.content     = split_paragraphs(params[:content])
-	@p.order	   = params[:order].to_i
-	@p.created_at  = Time.now
+	@p.name        	= params[:name]
+	@p.description 	= params[:description]
+	@p.content     	= split_paragraphs params[:content]
+	@p.order	   		= params[:order].to_i
+	@p.status				= params[:status]
+	@p.files				= split_files params[:files]
+	@p.created_at  	= Time.now
 	if params[:password] == SITE_PASSWORD
 		@p.save
 		redirect '/projects'
@@ -155,6 +178,10 @@ post '/add-project' do
 	end
 end
 
+get '/downloads/*.*' do
+	send_file params[:splat][0].to_s + "." + params[:splat][1].to_s
+end
+
 not_found do
-	halt 404, 'this page does not exist'
+	erb :err404, :layout => nil
 end

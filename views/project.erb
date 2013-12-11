@@ -3,11 +3,18 @@
 </div>
 <div class="project-pics">
 	<% @project.pics.each do |pic| %>
-		<img class="project-pic" src="<%= pic %>" width="100px" >
+		<a target="_blank" href=<%= "/projects/#{@project.id}/pics/#{pic}" %>><img class="project-pic" src="/img/<%= pic %>" width="150px" ></a>
 	<% end %>
 </div>
 <div class="project-info">
+	<h3 class="project-status">Status: [ <span id=<%= "#{@project.status.downcase}" %> ><%= @project.status.downcase %> </span> ]</h3>
 	<% @project.content.each do |content| %>
 		<p class="project-paragraph"><%= content %></p>
+	<% end %>
+	<% if @project.files.size > 0 %>
+		<p class="file-title">Files:</p>
+		<% @project.files.each do |file| %>
+			<a target="_blank" class="file-link" href=<%= "/downloads/public/downloads/#{file['url']}" %>><%= file["name"] %></a><br>
+		<% end %>
 	<% end %>
 </div>

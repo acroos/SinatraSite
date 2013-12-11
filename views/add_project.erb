@@ -1,10 +1,21 @@
-<div class="container">
 <form action="/add-project" method="post">
-	Name: <input type="text" name="name"><br>
-	Order: <input type="text" name="order"><br>
-	Description: <input type="text" name="description"><br>
-	Project Content: <textarea name="content" placeholder="Add project&hellip;"></textarea><br>
-	Password: <input type="password" name="password"><br>
-	<input type="submit">
+	<p class="input-title">Name:</p>
+	<input type="text" name="name">
+	<p class="input-title">Order:</p>
+	<input type="text" name="order">
+	<p class="input-title">Description:</p>
+	<input type="text" name="description">
+	<p class="input-title">Project Content:</p>
+	<textarea name="content" placeholder="Add project&hellip;"></textarea>
+	<p class="input-title">Status:</p>
+	<select name="status">
+		<option value="in-progress">In-Progress</option>
+		<option value="complete">Complete</option>
+		<option value="removed">Removed</option>
+	</select>
+	<p class="input-title">Files:</p>
+	<textarea name="files" placeholder="Add files&hellip;"></textarea>
+	<p class="input-title">Password:</p>
+	<input type="password" name="password">
+	<input class="submit-button" type="submit">
 </form>
-</div>
