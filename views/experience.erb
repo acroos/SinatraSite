@@ -1,0 +1,19 @@
+<div class="experience-info">
+	<div class="school">
+		<h2 class="sub-header">School</h1>
+			<h3 class="school-title">University of Minnesota - Twin Cities</h3>
+			<p class="school-info">B.S. Computer Science (Artificial Intelligence)</p>
+			<p class="school-info">GPA:  3.35</p>
+			<br>
+			<h3 class="school-title">Languages</h3>
+			<p class="school-info">Ruby, Python, Java, C#, C++, C, HTML5, CSS3, Scheme<br>JavaScript/JQuery, Ruby on Rails, Django, AngularJS</p>
+	</div>
+	<div class="work">
+		<h2 class="sub-header">Work</h1>
+			<% @jobs.each do |job| %>
+				<h3 class="work-title"><a href=<%= "/experience/#{job.id}" %>><%= job.company_name %></a></h3>
+				<p class="work-info"><%= job.start_date %> - <%= job.end_date %></p>
+				<p class="work-info last"><%= job.title %></p>
+			<% end %>
+	</div>
+</div>

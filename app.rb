@@ -36,11 +36,12 @@ end
 
 class Job
 	include MongoMapper::Document
-	key :order,				Integer
-	key :name,				String
-	key :description,	Array
-	key :start_date,	String
-	key :end_date,		String
+	key :order,					Integer
+	key :company_name,	String
+	key :title,					String
+	key :description,		Array
+	key :start_date,		String
+	key :end_date,			String
 end
 
 
@@ -100,6 +101,7 @@ get '/experience/?' do
 	@header = 'Experience'
 	@title = 'Experience'
 	@label = 'Experience'
+	@jobs = Job.sort(:order)
 	erb :experience
 end
 
@@ -164,6 +166,16 @@ get '/add-project' do
 	end
 end
 
+get '/add-job' do
+	if settings.development?
+		@title = "Admin only"
+		@header = "Add Job"
+		erb :add_job
+	else
+		redirect '/'
+	end
+end
+
 post '/add-project' do
 	@p = Project.new
 	@p.name        	= params[:name]
@@ -178,6 +190,22 @@ post '/add-project' do
 		redirect '/projects'
 	else
 		redirect '/add-project'
+	end
+end
+
+post '/add-job' do
+	@j = Job.new
+	@j.company_name 		= params[:company_name]
+	@j.title 						= params[:title]
+	@j.start_date				= params[:start_date]
+	@j.end_date					= params[:end_date]
+	@j.description			= split_paragraphs params[:description]
+	@j.order						= params[:order]
+	if params[:password] == SITE_PASSWORD
+		@j.save
+		redirect '/experience'
+	else
+		redirect '/add-job'
 	end
 end
 

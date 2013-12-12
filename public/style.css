@@ -71,14 +71,13 @@ small {
 
 .container {
 	width: 80%;
-	height: 95%;
+	min-height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
 	padding-top: 20px;
 	padding-bottom: 48px;
 	background-color: #F2F2F2;
-	/*margin-bottom: 48px;*/
 	border-radius: 4px;
 	border-left: 1px dashed #E2E2E2;
 	border-right: 1px dashed #E2E2E2;
@@ -233,18 +232,10 @@ small {
 	margin-top: 30px;
 }
 
-.work-info {
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-}
-
-.school-info {
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
+.school-info, .work-info {
+	margin-left: 32px;
+	margin-bottom: 4px;
+	font-size: 1.2em;
 }
 
 .contact-info {
@@ -323,4 +314,36 @@ small {
 
 .email-me {
 	font-weight: bolder;
+}
+
+.school-title{
+	margin-left: 32px;
+	margin-bottom: 4px;
+	font-size: 1.4em;
+}
+
+.work-title {
+	margin-left: 32px;
+	margin-bottom: 4px;
+	font-size: 1.4em;
+}
+
+.work-position {
+	margin-left: 64px;
+	margin-bottom: 8px;
+	font-size: 1.2em;
+}
+
+.experience-info {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.school, .work {
+	margin-top: 20px;
+}
+
+.last {
+	margin-bottom: 16px;
 }
